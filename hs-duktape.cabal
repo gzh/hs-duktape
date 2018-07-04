@@ -8,7 +8,7 @@ copyright:       2015-2017 Val Packett <val@packett.cool> / 2013-2017 Duktape au
 maintainer:      val@packett.cool
 license:         MIT
 license-file:    LICENSE
-build-type:      Simple
+build-type:      Custom
 cabal-version:   >= 1.10
 extra-source-files:
     README.md
@@ -21,6 +21,13 @@ tested-with:
 source-repository head
     type: git
     location: git://codeberg.org/valpackett/hs-duktape.git
+
+custom-setup
+    setup-depends:
+        base
+      , Cabal
+      , directory
+      , process
 
 library
     build-depends:
