@@ -29,7 +29,8 @@ import qualified Data.Text.Foreign as TF
 import qualified Data.ByteString as BS
 import qualified Data.ByteString.Lazy as BL
 import qualified Data.Vector as V
-import qualified Data.HashMap.Strict as HMS
+import qualified Data.Aeson.Key as KM
+import qualified Data.Aeson.KeyMap as KM
 import           Data.Aeson
 import           Data.Aeson.Types
 import           Data.Maybe (fromMaybe)
@@ -100,8 +101,8 @@ pushValue ctxPtr (Array v) = do
   V.zipWithM_ pushElement v (V.enumFromN 0 $ V.length v)
 pushValue ctxPtr (Object m) = do
   idx ← c_duk_push_object ctxPtr
-  forM_ (HMS.toList m) $ \(k, x) →
-    BS.useAsCString (encodeUtf8 k) $ \kCstr →
+  forM_ (KM.toList m) $ \(k, x) →
+    BS.useAsCString (encodeUtf8 $ KM.toText k) $ \kCstr →
       pushValue ctxPtr x >> c_duk_put_prop_string ctxPtr idx kCstr
 
 pushObjectOrGlobal ∷ Ptr DuktapeHeap → Maybe BS.ByteString → IO Bool
