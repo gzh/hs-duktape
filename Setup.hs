@@ -18,7 +18,7 @@ scriptArgs =
   , "--config-metadata", "duktape/config"
   , "--option-file", "dukconfig/config.yaml"
   ]
-repoSource = "duktape/src/duktape.c"
+repoSource = "duktape/RELEASES.rst"
 builtSource = "dukconfig/dist/duktape.c"
 
 buildDuktape _ _ = do
